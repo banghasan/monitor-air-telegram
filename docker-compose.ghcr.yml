@@ -9,6 +9,7 @@ services:
       PINTU_AIR_ID: ${PINTU_AIR_ID:-158} # PS Angke Hulu
       # DRY_RUN: ${DRY_RUN}
       # FORCE_SEND: ${FORCE_SEND}
+      TZ: ${TZ:-Asia/Jakarta}
       CRON_EVERY_MINUTES: ${CRON_EVERY_MINUTES:-5}
       # CRON_SCHEDULE="0 7 * * *" # jam 07:00 setiap hari
       # CRON_SCHEDULE: ${CRON_SCHEDULE}

@@ -76,6 +76,7 @@ TELEGRAM_CHAT_ID=123456789 DRY_RUN=1 docker compose -f docker-compose.ghcr.yml u
 Jadwal cron di dalam container:
 - `CRON_EVERY_MINUTES` untuk interval menit (default `5`)
 - `CRON_SCHEDULE` untuk ekspresi cron penuh (menimpa `CRON_EVERY_MINUTES`)
+- `TZ` untuk zona waktu log (default `Asia/Jakarta`)
 
 Contoh:
 ```
