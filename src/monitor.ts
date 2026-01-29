@@ -2,8 +2,8 @@ import { buildMessage, cleanStatus, extractTag } from "./lib.ts";
 
 const XML_URL = "https://poskobanjir.dsdadki.web.id/xmldata.xml";
 const DEFAULT_PINTU_AIR_ID = "158";
-const STATE_PATH = "./state.json";
-const LIST_PATH = "./pintu_air.json";
+const STATE_PATH = "./data/state.json";
+const LIST_PATH = "./data/pintu_air.json";
 
 function getEnv(name: string): string {
   const value = process.env[name];

@@ -13,5 +13,4 @@ services:
       # CRON_SCHEDULE="0 7 * * *" # jam 07:00 setiap hari
       # CRON_SCHEDULE: ${CRON_SCHEDULE}
     volumes:
-      - ./data/state.json:/app/state.json
-      - ./data/pintu_air.json:/app/pintu_air.json
+      - ./data:/app/data

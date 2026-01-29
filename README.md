@@ -58,8 +58,7 @@ touch data/state.json data/pintu_air.json
 docker run --rm \\
   --env-file .env \\
   -e CRON_EVERY_MINUTES=5 \\
-  -v $(pwd)/data/state.json:/app/state.json \\
-  -v $(pwd)/data/pintu_air.json:/app/pintu_air.json \\
+  -v $(pwd)/data:/app/data \\
   ghcr.io/banghasan/monitor-air-telegram:latest
 ```
 Image ini menjalankan cron di dalam container.
