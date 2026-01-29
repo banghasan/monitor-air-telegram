@@ -3,6 +3,9 @@
   "formatter": {
     "enabled": true
   },
+  "files": {
+    "include": ["src/**/*.ts"]
+  },
   "linter": {
     "enabled": true,
     "rules": {

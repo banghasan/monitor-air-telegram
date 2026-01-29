@@ -4,6 +4,11 @@ Script ini mengambil data dari Posko Banjir DKI Jakarta, memantau pintu air **P.
 
 ![Monitor Air Screenshot](./screenshot/monitor-air.jpg)
 
+## Struktur
+- `src/monitor.ts`: entrypoint utama
+- `src/lib.ts`: helper untuk parsing dan format pesan
+- `src/monitor.test.ts`: test
+
 ## Prasyarat
 - Bun terpasang
 - Bot Telegram + Chat ID
