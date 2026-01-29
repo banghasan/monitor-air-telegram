@@ -10,7 +10,7 @@ Script ini mengambil data dari Posko Banjir DKI Jakarta, memantau pintu air **P.
 - `src/monitor.test.ts`: test
 
 ## Prasyarat
-- Bun terpasang
+- Deno terpasang
 - Bot Telegram + Chat ID
 
 ## Konfigurasi
@@ -35,15 +35,16 @@ Setiap kali jalan, script akan:
 
 ## Menjalankan manual
 ```
-bun run src/monitor.ts
+deno run --allow-env --allow-net --allow-read --allow-write src/monitor.ts
 ```
 
-Atau pakai scripts:
+Atau pakai tasks:
 ```
-bun run start
-bun run dev
-bun run test
-bun run lint
+deno task start
+deno task dev
+deno task test
+deno task lint
+deno task fmt
 ```
 
 ## Menjalankan via Docker (GHCR)
@@ -92,22 +93,22 @@ Catatan:
 - Notifikasi hanya dikirim jika `STATUS_SIAGA` berubah pada run berikutnya.
 
 ## Lint & Test
-- Lint: `bun run lint`
-- Auto-fix: `bun run lint:fix`
-- Test: `bun run test`
+- Lint: `deno task lint`
+- Format: `deno task fmt`
+- Test: `deno task test`
 
 ## Cronjob tiap 5 menit
-1) Cek lokasi bun:
+1) Cek lokasi deno:
 ```
-which bun
+which deno
 ```
 
 2) Tambahkan ke crontab (`crontab -e`):
 ```
-*/5 * * * * /path/to/bun /home/DATA/bun/cekAir/src/monitor.ts >> /home/DATA/bun/cekAir/monitor.log 2>&1
+*/5 * * * * /path/to/deno run --allow-env --allow-net --allow-read --allow-write /home/DATA/deno/monitor-air-telegram/src/monitor.ts >> /home/DATA/deno/monitor-air-telegram/monitor.log 2>&1
 ```
 
-Ganti `/path/to/bun` sesuai output `which bun`.
+Ganti `/path/to/deno` sesuai output `which deno`.
 
 ## Format pesan
 Pesan Telegram akan tampil seperti:

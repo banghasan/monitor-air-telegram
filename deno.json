@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "start": "deno run --env-file=.env --allow-env --allow-net --allow-read --allow-write src/monitor.ts",
+    "dev": "FORCE_SEND=1 deno run --env-file=.env --allow-env --allow-net --allow-read --allow-write src/monitor.ts",
+    "test": "deno test --env-file=.env",
+    "lint": "deno lint",
+    "fmt": "deno fmt"
+  }
+}

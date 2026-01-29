@@ -1,8 +1,8 @@
-FROM oven/bun:1-alpine
+FROM denoland/deno:alpine
 
 WORKDIR /app
 
-COPY package.json ./
+COPY deno.json ./
 COPY . .
 
 ENV NODE_ENV=production

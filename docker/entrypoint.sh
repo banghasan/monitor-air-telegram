@@ -17,7 +17,12 @@ if [ -z "$CRON_SCHEDULE" ]; then
   exit 1
 fi
 
-CRON_COMMAND="cd /app && echo \"=== CRON RUN: \\$(date -Iseconds) ===\" && bun run src/monitor.ts"
+ENV_FILE_FLAG=""
+if [ -f "/app/.env" ]; then
+  ENV_FILE_FLAG="--env-file=.env"
+fi
+
+CRON_COMMAND="cd /app && echo \"=== CRON RUN: \\$(date -Iseconds) ===\" && deno run ${ENV_FILE_FLAG} --allow-env --allow-net --allow-read --allow-write src/monitor.ts"
 
 mkdir -p /app/data
 

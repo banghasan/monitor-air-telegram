@@ -6,7 +6,7 @@ const STATE_PATH = "./data/state.json";
 const LIST_PATH = "./data/pintu_air.json";
 
 function getEnv(name: string): string {
-  const value = process.env[name];
+  const value = Deno.env.get(name);
   if (!value) {
     throw new Error(`Missing required env var: ${name}`);
   }
@@ -14,41 +14,43 @@ function getEnv(name: string): string {
 }
 
 function isDryRun(): boolean {
-  const raw = (process.env.DRY_RUN ?? "").toLowerCase().trim();
+  const raw = (Deno.env.get("DRY_RUN") ?? "").toLowerCase().trim();
   return raw === "1" || raw === "true" || raw === "yes";
 }
 
 function isForceSend(): boolean {
-  const raw = (process.env.FORCE_SEND ?? "").toLowerCase().trim();
+  const raw = (Deno.env.get("FORCE_SEND") ?? "").toLowerCase().trim();
   return raw === "1" || raw === "true" || raw === "yes";
 }
 
 function getPintuAirId(): string {
-  const raw = (process.env.PINTU_AIR_ID ?? "").trim();
+  const raw = (Deno.env.get("PINTU_AIR_ID") ?? "").trim();
   return raw || DEFAULT_PINTU_AIR_ID;
 }
 
 async function readState(): Promise<{ status: string } | null> {
   try {
-    const file = Bun.file(STATE_PATH);
-    if (!(await file.exists())) return null;
-    const json = await file.text();
+    const json = await Deno.readTextFile(STATE_PATH);
     const data = JSON.parse(json);
     if (typeof data?.status === "string") {
       return { status: data.status };
     }
-    return null;
-  } catch {
+  } catch (err) {
+    if (err instanceof Deno.errors.NotFound) {
+      return null;
+    }
     return null;
   }
 }
 
 async function writeState(status: string): Promise<void> {
-  await Bun.write(STATE_PATH, JSON.stringify({ status }, null, 2));
+  await Deno.mkdir("data", { recursive: true });
+  await Deno.writeTextFile(STATE_PATH, JSON.stringify({ status }, null, 2));
 }
 
 async function writeList(list: Array<Record<string, string>>): Promise<void> {
-  await Bun.write(LIST_PATH, JSON.stringify(list, null, 2));
+  await Deno.mkdir("data", { recursive: true });
+  await Deno.writeTextFile(LIST_PATH, JSON.stringify(list, null, 2));
 }
 
 async function sendTelegram(message: string): Promise<void> {
@@ -74,7 +76,7 @@ async function sendTelegram(message: string): Promise<void> {
 }
 
 async function main() {
-  const response = await fetch(XML_URL, { cache: "no-store" });
+  const response = await fetch(XML_URL);
   if (!response.ok) {
     throw new Error(`Failed to fetch XML: ${response.status}`);
   }
@@ -167,5 +169,5 @@ async function main() {
 
 main().catch((err) => {
   console.error(err);
-  process.exitCode = 1;
+  Deno.exit(1);
 });
