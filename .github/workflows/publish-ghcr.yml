@@ -51,4 +51,5 @@ jobs:
 
       - name: Run note
         if: ${{ github.event.inputs.run_note != '' }}
-        run: echo "Run note: ${{ github.event.inputs.run_note }}"
+        run: |
+          echo "Run note: ${{ github.event.inputs.run_note }}"
