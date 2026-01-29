@@ -135,8 +135,8 @@ async function main() {
   const currentStatus = cleanStatus(data.status);
   const previous = await readState();
   const forceSend = isForceSend();
-  const shouldSend =
-    forceSend || (!!previous && previous.status !== currentStatus);
+  const shouldSend = forceSend ||
+    (!!previous && previous.status !== currentStatus);
 
   if (!previous) {
     if (!shouldSend) {

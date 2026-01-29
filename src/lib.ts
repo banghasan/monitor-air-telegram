@@ -70,7 +70,8 @@ export function buildMessage(record: {
   const siaga2 = toCm(record.siaga2);
   const siaga3 = toCm(record.siaga3);
 
-  const mapsUrl = `https://www.google.com/maps?q=${record.latitude},${record.longitude}`;
+  const mapsUrl =
+    `https://www.google.com/maps?q=${record.latitude},${record.longitude}`;
 
   return [
     `👀 <b>PEMANTAUAN TINGGI MUKA AIR (TMA)</b>`,
