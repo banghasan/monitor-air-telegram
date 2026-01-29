@@ -4,6 +4,9 @@
   "type": "module",
   "scripts": {
     "start": "bun run monitor.ts",
-    "dev": "FORCE_SEND=1 bun run monitor.ts"
+    "dev": "FORCE_SEND=1 bun run monitor.ts",
+    "test": "bun test",
+    "lint": "bunx biome check .",
+    "lint:fix": "bunx biome check --write ."
   }
 }

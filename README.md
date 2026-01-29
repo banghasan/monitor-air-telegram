@@ -2,6 +2,8 @@
 
 Script ini mengambil data dari Posko Banjir DKI Jakarta, memantau pintu air **P.S. Angke Hulu (Baru)** (ID 158), dan mengirim notifikasi Telegram hanya jika **STATUS_SIAGA berubah**.
 
+![Monitor Air Screenshot](./screenshot/monitor-air.jpg)
+
 ## Prasyarat
 - Bun terpasang
 - Bot Telegram + Chat ID
@@ -35,11 +37,18 @@ Atau pakai scripts:
 ```
 bun run start
 bun run dev
+bun run test
+bun run lint
 ```
 
 Catatan:
 - Pertama kali dijalankan, script hanya menyimpan status awal ke `state.json` dan **tidak** mengirim notifikasi.
 - Notifikasi hanya dikirim jika `STATUS_SIAGA` berubah pada run berikutnya.
+
+## Lint & Test
+- Lint: `bun run lint`
+- Auto-fix: `bun run lint:fix`
+- Test: `bun run test`
 
 ## Cronjob tiap 5 menit
 1) Cek lokasi bun:
