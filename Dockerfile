@@ -7,4 +7,4 @@ COPY . .
 
 ENV NODE_ENV=production
 
-CMD ["bun", "run", "src/monitor.ts"]
+ENTRYPOINT ["/app/docker/entrypoint.sh"]

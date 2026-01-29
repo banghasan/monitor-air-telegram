@@ -57,10 +57,12 @@ touch data/state.json data/pintu_air.json
 ```
 docker run --rm \\
   --env-file .env \\
+  -e CRON_EVERY_MINUTES=5 \\
   -v $(pwd)/data/state.json:/app/state.json \\
   -v $(pwd)/data/pintu_air.json:/app/pintu_air.json \\
   ghcr.io/banghasan/monitor-air-telegram:latest
 ```
+Image ini menjalankan cron di dalam container.
 
 Atau pakai docker-compose:
 ```
@@ -69,7 +71,20 @@ docker compose -f docker-compose.ghcr.yml up
 
 Override env saat run (nilai `environment` lebih tinggi dari `env_file`):
 ```
-TELEGRAM_CHAT_ID=123456789 docker compose -f docker-compose.ghcr.yml up
+TELEGRAM_CHAT_ID=123456789 DRY_RUN=1 docker compose -f docker-compose.ghcr.yml up
+```
+
+Jadwal cron di dalam container:
+- `CRON_EVERY_MINUTES` untuk interval menit (default `5`)
+- `CRON_SCHEDULE` untuk ekspresi cron penuh (menimpa `CRON_EVERY_MINUTES`)
+
+Contoh:
+```
+# setiap 5 menit
+CRON_EVERY_MINUTES=5 docker compose -f docker-compose.ghcr.yml up
+
+# jam 07:00 setiap hari
+CRON_SCHEDULE="0 7 * * *" docker compose -f docker-compose.ghcr.yml up
 ```
 
 Catatan:
