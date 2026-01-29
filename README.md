@@ -1,0 +1,63 @@
+# Monitor Air
+
+Script ini mengambil data dari Posko Banjir DKI Jakarta, memantau pintu air **P.S. Angke Hulu (Baru)** (ID 158), dan mengirim notifikasi Telegram hanya jika **STATUS_SIAGA berubah**.
+
+## Prasyarat
+- Bun terpasang
+- Bot Telegram + Chat ID
+
+## Konfigurasi
+Buat file `.env` di folder ini:
+
+```
+TELEGRAM_BOT_TOKEN=123456:ABCDEF...
+TELEGRAM_CHAT_ID=123456789
+PINTU_AIR_ID=158
+DRY_RUN=1
+FORCE_SEND=1
+```
+
+`PINTU_AIR_ID` opsional. Default `158` (P.S. Angke Hulu).  
+`DRY_RUN` opsional. Jika diaktifkan, script **tidak** mengirim ke Telegram dan hanya menulis pesan ke stdout (state tetap diperbarui).  
+`FORCE_SEND` opsional. Jika diaktifkan, pesan akan dikirim **meskipun** status tidak berubah (tetap menghormati `DRY_RUN`).
+
+## Output tambahan
+Setiap kali jalan, script akan:
+- Menulis daftar pintu air ke `pintu_air.json`.
+- Menampilkan output lengkap di stdout (pesan + data mentah).
+
+## Menjalankan manual
+```
+bun run monitor.ts
+```
+
+Atau pakai scripts:
+```
+bun run start
+bun run dev
+```
+
+Catatan:
+- Pertama kali dijalankan, script hanya menyimpan status awal ke `state.json` dan **tidak** mengirim notifikasi.
+- Notifikasi hanya dikirim jika `STATUS_SIAGA` berubah pada run berikutnya.
+
+## Cronjob tiap 5 menit
+1) Cek lokasi bun:
+```
+which bun
+```
+
+2) Tambahkan ke crontab (`crontab -e`):
+```
+*/5 * * * * /path/to/bun /home/DATA/bun/cekAir/monitor.ts >> /home/DATA/bun/cekAir/monitor.log 2>&1
+```
+
+Ganti `/path/to/bun` sesuai output `which bun`.
+
+## Format pesan
+Pesan Telegram akan tampil seperti:
+- Judul bold
+- Link sumber Posko Banjir DKI Jakarta
+- Link lokasi Google Maps berdasarkan `LATITUDE` dan `LONGITUDE`
+- Tanggal dalam format WIB
+- Icon naik/turun berdasarkan `TINGGI_AIR` dibanding `TINGGI_AIR_SEBELUMNYA`
