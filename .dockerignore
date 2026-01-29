@@ -1,10 +1,12 @@
 .git
 .github
+.vscode
+.zed
 data
 docker-compose*.yml
 .env
 .env.*
-README.md
+.editorconfig
 screenshot
 *.log
 *.md
