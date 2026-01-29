@@ -30,7 +30,7 @@ Setiap kali jalan, script akan:
 
 ## Menjalankan manual
 ```
-bun run monitor.ts
+bun run src/monitor.ts
 ```
 
 Atau pakai scripts:
@@ -84,7 +84,7 @@ which bun
 
 2) Tambahkan ke crontab (`crontab -e`):
 ```
-*/5 * * * * /path/to/bun /home/DATA/bun/cekAir/monitor.ts >> /home/DATA/bun/cekAir/monitor.log 2>&1
+*/5 * * * * /path/to/bun /home/DATA/bun/cekAir/src/monitor.ts >> /home/DATA/bun/cekAir/monitor.log 2>&1
 ```
 
 Ganti `/path/to/bun` sesuai output `which bun`.

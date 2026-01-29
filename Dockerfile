@@ -7,4 +7,4 @@ COPY . .
 
 ENV NODE_ENV=production
 
-CMD ["bun", "run", "monitor.ts"]
+CMD ["bun", "run", "src/monitor.ts"]
