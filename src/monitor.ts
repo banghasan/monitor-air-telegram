@@ -126,17 +126,17 @@ async function main() {
   await writeList(list);
 
   const message = buildMessage(data);
-  console.log("=== OUTPUT LENGKAP ===");
-  console.log(message);
-  console.log("");
-  console.log("=== DATA RAW ===");
-  console.log(JSON.stringify({ pintuAirId, ...data }, null, 2));
+  // console.log("=== OUTPUT LENGKAP ===");
+  // console.log(message);
+  // console.log("");
+  // console.log("=== DATA RAW ===");
+  // console.log(JSON.stringify({ pintuAirId, ...data }, null, 2));
 
   const currentStatus = cleanStatus(data.status);
   const previous = await readState();
   const forceSend = isForceSend();
-  const shouldSend = forceSend ||
-    (!!previous && previous.status !== currentStatus);
+  const shouldSend =
+    forceSend || (!!previous && previous.status !== currentStatus);
 
   if (!previous) {
     if (!shouldSend) {
