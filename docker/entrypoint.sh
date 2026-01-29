@@ -17,11 +17,15 @@ if [ -z "$CRON_SCHEDULE" ]; then
   exit 1
 fi
 
-CRON_COMMAND="cd /app && echo \"=== CRON RUN: \\$(date -Iseconds) ===\" >> /proc/1/fd/1 2>&1 && bun run src/monitor.ts >> /proc/1/fd/1 2>&1"
+CRON_COMMAND="cd /app && echo \"=== CRON RUN: \\$(date -Iseconds) ===\" && bun run src/monitor.ts"
 
 mkdir -p /app/data
 
-echo "${CRON_SCHEDULE} ${CRON_COMMAND}" > /etc/crontabs/root
+{
+  echo "SHELL=/bin/sh"
+  echo "PATH=/usr/local/bin:/usr/bin:/bin"
+  echo "${CRON_SCHEDULE} /bin/sh -c '${CRON_COMMAND}' >> /proc/1/fd/1 2>&1"
+} > /etc/crontabs/root
 echo "Cron schedule: ${CRON_SCHEDULE}"
 
 exec crond -f -l 0 -L /dev/null
