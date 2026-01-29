@@ -7,10 +7,6 @@ on:
         description: "Docker image tag"
         required: false
         default: "latest"
-      run_note:
-        description: "Catatan untuk run ini (opsional)"
-        required: false
-        default: ""
 
 permissions:
   contents: read
@@ -48,8 +44,3 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: ${{ env.IMAGE_NAME }}:${{ github.event.inputs.image_tag }}
-
-      - name: Run note
-        if: ${{ github.event.inputs.run_note != '' }}
-        run: |
-          echo "Run note: ${{ github.event.inputs.run_note }}"
