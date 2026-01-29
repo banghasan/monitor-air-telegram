@@ -1,0 +1,10 @@
+.git
+.github
+data
+docker-compose*.yml
+.env
+.env.*
+README.md
+screenshot
+*.log
+*.md
