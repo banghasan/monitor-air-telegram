@@ -1,0 +1,14 @@
+services:
+  monitor-air:
+    image: ghcr.io/banghasan/monitor-air-telegram:latest
+    env_file:
+      - .env
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
+      PINTU_AIR_ID: 158 # PS Angke Hulu
+      # DRY_RUN: ${DRY_RUN}
+      # FORCE_SEND: ${FORCE_SEND}
+    volumes:
+      - ./data/state.json:/app/state.json
+      - ./data/pintu_air.json:/app/pintu_air.json

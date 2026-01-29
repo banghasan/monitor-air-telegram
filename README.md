@@ -41,6 +41,32 @@ bun run test
 bun run lint
 ```
 
+## Menjalankan via Docker (GHCR)
+1) Siapkan file `.env` seperti di atas.
+2) Buat folder `data` untuk file state:
+```
+mkdir -p data
+touch data/state.json data/pintu_air.json
+```
+3) Jalankan dengan Docker:
+```
+docker run --rm \\
+  --env-file .env \\
+  -v $(pwd)/data/state.json:/app/state.json \\
+  -v $(pwd)/data/pintu_air.json:/app/pintu_air.json \\
+  ghcr.io/banghasan/monitor-air-telegram:latest
+```
+
+Atau pakai docker-compose:
+```
+docker compose -f docker-compose.ghcr.yml up
+```
+
+Override env saat run (nilai `environment` lebih tinggi dari `env_file`):
+```
+TELEGRAM_CHAT_ID=123456789 docker compose -f docker-compose.ghcr.yml up
+```
+
 Catatan:
 - Pertama kali dijalankan, script hanya menyimpan status awal ke `state.json` dan **tidak** mengirim notifikasi.
 - Notifikasi hanya dikirim jika `STATUS_SIAGA` berubah pada run berikutnya.
