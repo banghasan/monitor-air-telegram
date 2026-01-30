@@ -5,7 +5,7 @@ WORKDIR /app
 COPY deno.json ./
 COPY . .
 
-RUN chmod +x /app/docker/entrypoint.sh /app/docker/healthcheck.sh
+RUN chmod +x /app/docker/entrypoint.sh /app/docker/healthcheck.sh /app/docker/cron.sh
 
 ENV NODE_ENV=production
 ENV TZ=Asia/Jakarta

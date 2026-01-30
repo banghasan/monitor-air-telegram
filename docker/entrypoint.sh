@@ -3,6 +3,8 @@ set -e
 
 CRON_SCHEDULE="${CRON_SCHEDULE:-}"
 CRON_EVERY_MINUTES="${CRON_EVERY_MINUTES:-}"
+TZ="${TZ:-Asia/Jakarta}"
+export TZ
 
 if [ -z "$CRON_SCHEDULE" ]; then
   if [ -n "$CRON_EVERY_MINUTES" ]; then
@@ -17,12 +19,7 @@ if [ -z "$CRON_SCHEDULE" ]; then
   exit 1
 fi
 
-ENV_FILE_FLAG=""
-if [ -f "/app/.env" ]; then
-  ENV_FILE_FLAG="--env-file=.env"
-fi
-
-CRON_COMMAND="cd /app && echo \"=== CRON RUN: \\$(date -Iseconds) ===\" && deno run ${ENV_FILE_FLAG} --allow-env --allow-net --allow-read --allow-write src/monitor.ts"
+CRON_COMMAND="/app/docker/cron.sh"
 
 mkdir -p /app/data
 
