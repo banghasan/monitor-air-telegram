@@ -9,7 +9,7 @@ export class TelegramService {
       body: JSON.stringify({
         chat_id: this.chatId,
         text: message,
-        parse_mode: "HTML",
+        parse_mode: "MarkdownV2",
         disable_web_page_preview: true,
       }),
     });

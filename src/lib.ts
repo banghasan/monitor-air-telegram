@@ -42,13 +42,12 @@ export function formatJakarta(dateIso: string): string {
   return `${day} ${month} ${year} ${hour}:${minute}:${second} WIB`;
 }
 
-export function escapeHtml(input: string): string {
-  return input
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+export function escapeMarkdownV2(input: string): string {
+  return input.replace(/[_*\[\]()~`>#+\-=|{}.!\\]/g, "\\$&");
+}
+
+function escapeMarkdownUrl(input: string): string {
+  return input.replace(/[_*\[\]()~`>#+\-=|{}.!\\]/g, "\\$&");
 }
 
 export function buildMessage(record: GateData): string {
@@ -65,21 +64,23 @@ export function buildMessage(record: GateData): string {
     `https://www.google.com/maps?q=${record.latitude},${record.longitude}`;
 
   return [
-    `👀 <b>PEMANTAUAN TINGGI MUKA AIR (TMA)</b>`,
-    `📍 Sumber : <a href="${SOURCE_URL}">Posko Banjir DKI Jakarta</a>`,
+    `👀 *${escapeMarkdownV2("PEMANTAUAN TINGGI MUKA AIR (TMA)")}*`,
+    `📍 Sumber : [${escapeMarkdownV2("Posko Banjir DKI Jakarta")}](${
+      escapeMarkdownUrl(SOURCE_URL)
+    })`,
     "",
-    `🔰 <a href="${mapsUrl}">${escapeHtml(record.name)}</a>`,
-    `  ├  ⏰ <code>${escapeHtml(dateStr)}</code>`,
-    `  ├  ${icon} Ketinggian <code>${tinggiCm}</code> cm`,
-    `  └  🖐🏼 Status : <b>${escapeHtml(status)}</b>`,
+    `🔰 [${escapeMarkdownV2(record.name)}](${escapeMarkdownUrl(mapsUrl)})`,
+    `  ├  ⏰ \`${escapeMarkdownV2(dateStr)}\``,
+    `  ├  ${icon} Ketinggian \`${tinggiCm}\` cm`,
+    `  └  🖐🏼 Status : *${escapeMarkdownV2(status)}*`,
     "",
-    "📑 <b>Keterangan</b>:",
-    `  ├  Siaga 1: &gt; <code>${siaga1}</code> cm`,
-    `  ├  Siaga 2: &gt; <code>${siaga2}</code> cm`,
-    `  ├  Siaga 3: &gt; <code>${siaga3}</code> cm`,
-    `  └  Normal &lt; <code>${siaga3}</code> cm`,
+    "📑 *Keterangan*:",
+    `  ├  ${escapeMarkdownV2("Siaga 1")}: \\> \`${siaga1}\` cm`,
+    `  ├  ${escapeMarkdownV2("Siaga 2")}: \\> \`${siaga2}\` cm`,
+    `  ├  ${escapeMarkdownV2("Siaga 3")}: \\> \`${siaga3}\` cm`,
+    `  └  ${escapeMarkdownV2("Normal")} < \`${siaga3}\` cm`,
     "",
-    "🔖 <b>Legenda:</b>",
+    "🔖 *Legenda:*",
     " ├ 🔺 naik",
     " └ ⤵️ turun",
   ].join("\n");

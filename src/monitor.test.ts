@@ -42,13 +42,13 @@ Deno.test("buildMessage includes key parts and icon", () => {
     siaga3: "1500",
   });
 
-  assertStringIncludes(message, "<b>PEMANTAUAN TINGGI MUKA AIR (TMA)</b>");
+  assertStringIncludes(message, "*PEMANTAUAN TINGGI MUKA AIR \\(TMA\\)*");
   assertStringIncludes(message, "Posko Banjir DKI Jakarta");
   assertStringIncludes(
     message,
-    "https://www.google.com/maps?q=-6.218026,106.694077",
+    "https://www\\.google\\.com/maps?q=-6.218026,106.694077",
   );
-  assertStringIncludes(message, "🔺 Ketinggian <code>220</code> cm");
-  assertStringIncludes(message, "Status : <b>Siaga 3</b>");
-  assertStringIncludes(message, "Normal &lt; <code>150</code> cm");
+  assertStringIncludes(message, "🔺 Ketinggian `220` cm");
+  assertStringIncludes(message, "Status : *Siaga 3*");
+  assertStringIncludes(message, "Normal < `150` cm");
 });
