@@ -50,7 +50,11 @@ function escapeMarkdownUrl(input: string): string {
   return input.replace(/[_*\[\]()~`>#+\-=|{}.!\\]/g, "\\$&");
 }
 
-export function buildMessage(record: GateData): string {
+function escapeMarkdownBasic(input: string): string {
+  return input.replace(/[_*\[\]()]/g, "\\$&");
+}
+
+export function buildMessageTelegram(record: GateData): string {
   const tinggiCm = toCm(record.tinggi);
   const tinggiSebelumnyaCm = toCm(record.tinggiSebelumnya);
   const icon = tinggiCm > tinggiSebelumnyaCm ? "🔺" : "⤵️";
@@ -81,6 +85,42 @@ export function buildMessage(record: GateData): string {
     `  └  ${escapeMarkdownV2("Normal")} < \`${siaga3}\` cm`,
     "",
     "🔖 *Legenda:*",
+    " ├ 🔺 naik",
+    " └ ⤵️ turun",
+  ].join("\n");
+}
+
+export function buildMessageNtfy(record: GateData): string {
+  const tinggiCm = toCm(record.tinggi);
+  const tinggiSebelumnyaCm = toCm(record.tinggiSebelumnya);
+  const icon = tinggiCm > tinggiSebelumnyaCm ? "🔺" : "⤵️";
+  const dateStr = formatJakarta(record.tanggal);
+  const status = cleanStatus(record.status);
+  const siaga1 = toCm(record.siaga1);
+  const siaga2 = toCm(record.siaga2);
+  const siaga3 = toCm(record.siaga3);
+
+  const mapsUrl =
+    `https://www.google.com/maps?q=${record.latitude},${record.longitude}`;
+
+  return [
+    `👀 **${escapeMarkdownBasic("PEMANTAUAN TINGGI MUKA AIR (TMA)")}**`,
+    `📍 Sumber : [${
+      escapeMarkdownBasic("Posko Banjir DKI Jakarta")
+    }](${SOURCE_URL})`,
+    "",
+    `🔰 [${escapeMarkdownBasic(record.name)}](${mapsUrl})`,
+    `  ├  ⏰ \`${escapeMarkdownBasic(dateStr)}\``,
+    `  ├  ${icon} Ketinggian \`${tinggiCm}\` cm`,
+    `  └  🖐🏼 Status : **${escapeMarkdownBasic(status)}**`,
+    "",
+    "**Keterangan**:",
+    `  ├  ${escapeMarkdownBasic("Siaga 1")}: > \`${siaga1}\` cm`,
+    `  ├  ${escapeMarkdownBasic("Siaga 2")}: > \`${siaga2}\` cm`,
+    `  ├  ${escapeMarkdownBasic("Siaga 3")}: > \`${siaga3}\` cm`,
+    `  └  ${escapeMarkdownBasic("Normal")} < \`${siaga3}\` cm`,
+    "",
+    "**Legenda:**",
     " ├ 🔺 naik",
     " └ ⤵️ turun",
   ].join("\n");

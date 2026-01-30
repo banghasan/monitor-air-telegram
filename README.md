@@ -145,7 +145,12 @@ Ganti `/path/to/deno` sesuai output `which deno`.
 
 ## Format pesan
 
-Pesan Telegram akan tampil seperti:
+Pesan dikirim dengan dua format:
+
+- Telegram memakai **MarkdownV2**.
+- ntfy memakai **Markdown** (aktif jika `NTFY_ENABLE=true`).
+
+Tampilan pesan di Telegram akan seperti:
 
 - Judul bold
 - Link sumber Posko Banjir DKI Jakarta

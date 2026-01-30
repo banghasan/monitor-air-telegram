@@ -1,6 +1,7 @@
 import { assertEquals, assertStringIncludes } from "@std/assert";
 import {
-  buildMessage,
+  buildMessageNtfy,
+  buildMessageTelegram,
   cleanStatus,
   extractTag,
   formatJakarta,
@@ -28,8 +29,8 @@ Deno.test("formatJakarta formats WIB", () => {
   assertEquals(formatJakarta(input), "29 Januari 2026 10:55:00 WIB");
 });
 
-Deno.test("buildMessage includes key parts and icon", () => {
-  const message = buildMessage({
+Deno.test("buildMessageTelegram includes key parts and icon", () => {
+  const message = buildMessageTelegram({
     name: "P.S. Angke Hulu (Baru)",
     latitude: "-6.218026",
     longitude: "106.694077",
@@ -50,5 +51,30 @@ Deno.test("buildMessage includes key parts and icon", () => {
   );
   assertStringIncludes(message, "🔺 Ketinggian `220` cm");
   assertStringIncludes(message, "Status : *Siaga 3*");
+  assertStringIncludes(message, "Normal < `150` cm");
+});
+
+Deno.test("buildMessageNtfy includes key parts and icon", () => {
+  const message = buildMessageNtfy({
+    name: "P.S. Angke Hulu (Baru)",
+    latitude: "-6.218026",
+    longitude: "106.694077",
+    tanggal: "2026-01-29T10:55:00+07:00",
+    tinggi: "2200",
+    tinggiSebelumnya: "2000",
+    status: "Status : Siaga 3",
+    siaga1: "3000",
+    siaga2: "2500",
+    siaga3: "1500",
+  });
+
+  assertStringIncludes(message, "**PEMANTAUAN TINGGI MUKA AIR \\(TMA\\)**");
+  assertStringIncludes(message, "Posko Banjir DKI Jakarta");
+  assertStringIncludes(
+    message,
+    "https://www.google.com/maps?q=-6.218026,106.694077",
+  );
+  assertStringIncludes(message, "🔺 Ketinggian `220` cm");
+  assertStringIncludes(message, "Status : **Siaga 3**");
   assertStringIncludes(message, "Normal < `150` cm");
 });

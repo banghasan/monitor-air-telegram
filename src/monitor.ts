@@ -1,5 +1,10 @@
 import { CONFIG } from "./config.ts";
-import { buildMessage, cleanStatus, toCm } from "./lib.ts";
+import {
+  buildMessageNtfy,
+  buildMessageTelegram,
+  cleanStatus,
+  toCm,
+} from "./lib.ts";
 import { fetchGateData } from "./services/provider.ts";
 import { NtfyService } from "./services/ntfy.ts";
 import { readState, writeGateList, writeState } from "./services/state.ts";
@@ -17,7 +22,8 @@ async function main() {
   }
 
   // 3. Prepare Logic
-  const message = buildMessage(data);
+  const messageTelegram = buildMessageTelegram(data);
+  const messageNtfy = buildMessageNtfy(data);
   const currentStatus = cleanStatus(data.status);
   const tinggiCm = toCm(data.tinggi);
   const previous = await readState();
@@ -49,16 +55,16 @@ async function main() {
   // 6. Send Notification (or Dry Run)
   if (CONFIG.flags.dryRun) {
     console.log("DRY_RUN enabled, notifications skipped:");
-    console.log(message);
+    console.log(messageTelegram);
   } else {
     const telegram = new TelegramService(
       CONFIG.telegram.token,
       CONFIG.telegram.chatId,
     );
-    await telegram.sendMessage(message);
+    await telegram.sendMessage(messageTelegram);
     if (shouldSendNtfy) {
       const ntfy = new NtfyService(CONFIG.ntfy.server, CONFIG.ntfy.topic);
-      await ntfy.publish(message);
+      await ntfy.publish(messageNtfy);
     }
   }
 

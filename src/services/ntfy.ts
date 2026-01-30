@@ -19,7 +19,10 @@ export class NtfyService {
 
     const res = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "text/plain; charset=utf-8" },
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        Markdown: "yes",
+      },
       body: message,
     });
 
