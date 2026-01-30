@@ -68,7 +68,7 @@ export function buildMessageTelegram(record: GateData): string {
     `https://www.google.com/maps?q=${record.latitude},${record.longitude}`;
 
   return [
-    `👀 *${escapeMarkdownV2("PEMANTAUAN TINGGI MUKA AIR (TMA)")}*`,
+    `👀 *${escapeMarkdownV2("TINGGI MUKA AIR (TMA)")}*`,
     `📍 Sumber : [${escapeMarkdownV2("Posko Banjir DKI Jakarta")}](${
       escapeMarkdownUrl(SOURCE_URL)
     })`,
@@ -104,7 +104,7 @@ export function buildMessageNtfy(record: GateData): string {
     `https://www.google.com/maps?q=${record.latitude},${record.longitude}`;
 
   return [
-    `👀 **${escapeMarkdownBasic("PEMANTAUAN TINGGI MUKA AIR (TMA)")}**`,
+    `**${escapeMarkdownBasic("TINGGI MUKA AIR (TMA)")}**`,
     `📍 Sumber : [${
       escapeMarkdownBasic("Posko Banjir DKI Jakarta")
     }](${SOURCE_URL})`,

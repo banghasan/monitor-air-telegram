@@ -43,7 +43,7 @@ Deno.test("buildMessageTelegram includes key parts and icon", () => {
     siaga3: "1500",
   });
 
-  assertStringIncludes(message, "*PEMANTAUAN TINGGI MUKA AIR \\(TMA\\)*");
+  assertStringIncludes(message, "*TINGGI MUKA AIR \\(TMA\\)*");
   assertStringIncludes(message, "Posko Banjir DKI Jakarta");
   assertStringIncludes(
     message,
@@ -68,7 +68,7 @@ Deno.test("buildMessageNtfy includes key parts and icon", () => {
     siaga3: "1500",
   });
 
-  assertStringIncludes(message, "**PEMANTAUAN TINGGI MUKA AIR \\(TMA\\)**");
+  assertStringIncludes(message, "**TINGGI MUKA AIR \\(TMA\\)**");
   assertStringIncludes(message, "Posko Banjir DKI Jakarta");
   assertStringIncludes(
     message,

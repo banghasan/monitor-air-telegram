@@ -22,6 +22,8 @@ export class NtfyService {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
         Markdown: "yes",
+        Icon:
+          "https://raw.githubusercontent.com/selfhst/icons/refs/heads/main/png/adguard-home-central-manager.png",
       },
       body: message,
     });
