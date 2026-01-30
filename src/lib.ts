@@ -37,7 +37,7 @@ export function formatJakarta(dateIso: string): string {
   const minute = get("minute");
   const second = get("second");
 
-  return `${day} ${month} ${year} pukul ${hour}.${minute}.${second} WIB`;
+  return `${day} ${month} ${year} ${hour}:${minute}:${second} WIB`;
 }
 
 export function escapeHtml(input: string): string {
@@ -70,8 +70,7 @@ export function buildMessage(record: {
   const siaga2 = toCm(record.siaga2);
   const siaga3 = toCm(record.siaga3);
 
-  const mapsUrl =
-    `https://www.google.com/maps?q=${record.latitude},${record.longitude}`;
+  const mapsUrl = `https://www.google.com/maps?q=${record.latitude},${record.longitude}`;
 
   return [
     `👀 <b>PEMANTAUAN TINGGI MUKA AIR (TMA)</b>`,

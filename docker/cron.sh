@@ -7,5 +7,5 @@ if [ -f "/app/.env" ]; then
 fi
 
 cd /app
-echo "[cron] $(date -Iseconds)"
+echo "[cron] $(date '+%d %B %Y %H:%M:%S WIB')"
 exec deno run ${ENV_FILE_FLAG} --allow-env --allow-net --allow-read --allow-write src/monitor.ts
