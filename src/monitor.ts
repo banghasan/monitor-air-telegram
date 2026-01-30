@@ -1,6 +1,7 @@
 import { CONFIG } from "./config.ts";
 import { buildMessage, cleanStatus, toCm } from "./lib.ts";
 import { fetchGateData } from "./services/provider.ts";
+import { NtfyService } from "./services/ntfy.ts";
 import { readState, writeGateList, writeState } from "./services/state.ts";
 import { TelegramService } from "./services/telegram.ts";
 
@@ -26,6 +27,7 @@ async function main() {
   // If no previous state, we generally don't alert unless forced.
   const statusChanged = !!previous && previous.status !== currentStatus;
   const shouldSend = forceSend || statusChanged;
+  const shouldSendNtfy = shouldSend && (CONFIG.ntfy.enabled || forceSend);
 
   // 4. Handle First Run (No Previous State)
   if (!previous) {
@@ -46,7 +48,7 @@ async function main() {
 
   // 6. Send Notification (or Dry Run)
   if (CONFIG.flags.dryRun) {
-    console.log("DRY_RUN enabled, Telegram message skipped:");
+    console.log("DRY_RUN enabled, notifications skipped:");
     console.log(message);
   } else {
     const telegram = new TelegramService(
@@ -54,6 +56,10 @@ async function main() {
       CONFIG.telegram.chatId,
     );
     await telegram.sendMessage(message);
+    if (shouldSendNtfy) {
+      const ntfy = new NtfyService(CONFIG.ntfy.server, CONFIG.ntfy.topic);
+      await ntfy.publish(message);
+    }
   }
 
   // 7. Update State

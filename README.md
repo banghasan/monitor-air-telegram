@@ -25,13 +25,20 @@ Buat file `.env` di folder ini:
 TELEGRAM_BOT_TOKEN=123456:ABCDEF...
 TELEGRAM_CHAT_ID=123456789
 PINTU_AIR_ID=158
+NTFY_SERVER=ntfy.sh
+NTFY_TOPIC=monitor-air-hulu
+NTFY_ENABLE=false
 DRY_RUN=1
 FORCE_SEND=1
 ```
 
 `PINTU_AIR_ID` opsional. Default `158` (P.S. Angke Hulu).\
-`DRY_RUN` opsional. Jika diaktifkan, script **tidak** mengirim ke Telegram dan
-hanya menulis pesan ke stdout (state tetap diperbarui).\
+`NTFY_SERVER` opsional. Default `ntfy.sh`.\
+`NTFY_TOPIC` opsional. Default `monitor-air-hulu`.\
+`NTFY_ENABLE` opsional. Jika `true`, kirim notifikasi ke ntfy (mode `dev` tetap
+mengirim ke ntfy).\
+`DRY_RUN` opsional. Jika diaktifkan, script **tidak** mengirim ke Telegram/ntfy
+dan hanya menulis pesan ke stdout (state tetap diperbarui).\
 `FORCE_SEND` opsional. Jika diaktifkan, pesan akan dikirim **meskipun** status
 tidak berubah (tetap menghormati `DRY_RUN`).
 

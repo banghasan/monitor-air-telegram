@@ -7,8 +7,11 @@ services:
       TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
       TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
       PINTU_AIR_ID: ${PINTU_AIR_ID:-158} # PS Angke Hulu
-      # DRY_RUN: ${DRY_RUN}
-      # FORCE_SEND: ${FORCE_SEND}
+      NTFY_SERVER: ${NTFY_SERVER:-ntfy.sh}
+      NTFY_TOPIC: ${NTFY_TOPIC:-monitor-air-hulu}
+      NTFY_ENABLE: ${NTFY_ENABLE:-false}
+      DRY_RUN: ${DRY_RUN:-false}
+      FORCE_SEND: ${FORCE_SEND:-false}
       TZ: ${TZ:-Asia/Jakarta}
       CRON_EVERY_MINUTES: ${CRON_EVERY_MINUTES:-5}
       # CRON_SCHEDULE="0 7 * * *" # jam 07:00 setiap hari

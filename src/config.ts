@@ -7,6 +7,17 @@ export const CONFIG = {
       return getEnv("TELEGRAM_CHAT_ID", true);
     },
   },
+  ntfy: {
+    get server() {
+      return getEnv("NTFY_SERVER") || "ntfy.sh";
+    },
+    get topic() {
+      return getEnv("NTFY_TOPIC") || "monitor-air-hulu";
+    },
+    get enabled() {
+      return getBool("NTFY_ENABLE");
+    },
+  },
   pintuAir: {
     url: "https://poskobanjir.dsdadki.web.id/xmldata.xml",
     get id() {
