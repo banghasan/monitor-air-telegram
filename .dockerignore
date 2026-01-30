@@ -10,3 +10,4 @@ docker-compose*.yml
 screenshot
 *.log
 *.md
+*.test.ts

@@ -2,13 +2,18 @@
 
 ## Project Structure & Module Organization
 
-- `src/monitor.ts`: entrypoint utama untuk fetch data pintu air, bandingkan
-  status, dan kirim Telegram.
-- `src/lib.ts`: helper parsing XML, format pesan, dan utilitas waktu.
-- `src/monitor.test.ts`: unit test untuk helper dan format pesan.
-- `data/`: penyimpanan `state.json` dan `pintu_air.json` (runtime state).
-- `docker/`: entrypoint dan healthcheck container.
-- `deno.json`: task dan import map Deno.
+- `src/monitor.ts`: Entrypoint utama yang mengatur alur logika (orchestrator).
+- `src/config.ts`: Konfigurasi terpusat dan validasi environment variables.
+- `src/services/`:
+  - `provider.ts`: Mengambil data dari sumber XML dan parsing.
+  - `state.ts`: Membaca/menulis state ke file (`data/`).
+  - `telegram.ts`: Menangani pengiriman pesan ke API Telegram.
+- `src/types.ts`: Definisi tipe data (interface) yang digunakan bersama.
+- `src/lib.ts`: Fungsi utilitas murni (formatting, calculation).
+- `src/monitor.test.ts`: Unit test untuk helper dan logika pesan.
+- `data/`: Penyimpanan runtime state (`state.json` dan `pintu_air.json`).
+- `docker/`: Entrypoint dan healthcheck container.
+- `deno.json`: Task dan konfigurasi Deno.
 
 ## Build, Test, and Development Commands
 

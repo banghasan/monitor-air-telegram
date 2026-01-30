@@ -1,3 +1,5 @@
+import { GateData } from "./types.ts";
+
 const SOURCE_URL = "https://poskobanjir.dsdadki.web.id";
 
 export function extractTag(xmlBlock: string, tag: string): string {
@@ -49,18 +51,7 @@ export function escapeHtml(input: string): string {
     .replace(/'/g, "&#39;");
 }
 
-export function buildMessage(record: {
-  name: string;
-  latitude: string;
-  longitude: string;
-  tanggal: string;
-  tinggi: string;
-  tinggiSebelumnya: string;
-  status: string;
-  siaga1: string;
-  siaga2: string;
-  siaga3: string;
-}): string {
+export function buildMessage(record: GateData): string {
   const tinggiCm = toCm(record.tinggi);
   const tinggiSebelumnyaCm = toCm(record.tinggiSebelumnya);
   const icon = tinggiCm > tinggiSebelumnyaCm ? "🔺" : "⤵️";
