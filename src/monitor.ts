@@ -1,4 +1,4 @@
-import { buildMessage, cleanStatus, extractTag } from "./lib.ts";
+import { buildMessage, cleanStatus, extractTag, toCm } from "./lib.ts";
 
 const XML_URL = "https://poskobanjir.dsdadki.web.id/xmldata.xml";
 const DEFAULT_PINTU_AIR_ID = "158";
@@ -133,21 +133,24 @@ async function main() {
   // console.log(JSON.stringify({ pintuAirId, ...data }, null, 2));
 
   const currentStatus = cleanStatus(data.status);
+  const tinggiCm = toCm(data.tinggi);
   const previous = await readState();
   const forceSend = isForceSend();
-  const shouldSend =
-    forceSend || (!!previous && previous.status !== currentStatus);
+  const shouldSend = forceSend ||
+    (!!previous && previous.status !== currentStatus);
 
   if (!previous) {
     if (!shouldSend) {
       await writeState(currentStatus);
-      console.log(`State initialized with status: ${currentStatus}`);
+      console.log(
+        `State initialized with status: ${currentStatus} (TMA ${tinggiCm} cm)`,
+      );
       return;
     }
   }
 
   if (!shouldSend) {
-    console.log(`No status change: ${currentStatus}`);
+    console.log(`No status change: ${currentStatus} (TMA ${tinggiCm} cm)`);
     return;
   }
 
@@ -159,11 +162,17 @@ async function main() {
   }
   await writeState(currentStatus);
   if (!previous) {
-    console.log(`Force send without previous state: ${currentStatus}`);
+    console.log(
+      `Force send without previous state: ${currentStatus} (TMA ${tinggiCm} cm)`,
+    );
   } else if (forceSend) {
-    console.log(`Force send: ${previous.status} -> ${currentStatus}`);
+    console.log(
+      `Force send: ${previous.status} -> ${currentStatus} (TMA ${tinggiCm} cm)`,
+    );
   } else {
-    console.log(`Status changed: ${previous.status} -> ${currentStatus}`);
+    console.log(
+      `Status changed: ${previous.status} -> ${currentStatus} (TMA ${tinggiCm} cm)`,
+    );
   }
 }
 
