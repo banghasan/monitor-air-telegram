@@ -47,7 +47,7 @@ Deno.test("buildMessageTelegram includes key parts and icon", () => {
   assertStringIncludes(message, "Posko Banjir DKI Jakarta");
   assertStringIncludes(
     message,
-    "https://www\\.google\\.com/maps?q=-6.218026,106.694077",
+    "https://www\\.google\\.com/maps?q\\=\\-6\\.218026,106\\.694077",
   );
   assertStringIncludes(message, "🔺 Ketinggian `220` cm");
   assertStringIncludes(message, "Status : *Siaga 3*");
