@@ -25,7 +25,7 @@ Deno.test("toCm converts millimeters to cm", () => {
 
 Deno.test("formatJakarta formats WIB", () => {
   const input = "2026-01-29T10:55:00+07:00";
-  assertEquals(formatJakarta(input), "29 Januari 2026 pukul 10.55.00 WIB");
+  assertEquals(formatJakarta(input), "29 Januari 2026 10:55:00 WIB");
 });
 
 Deno.test("buildMessage includes key parts and icon", () => {

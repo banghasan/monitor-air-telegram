@@ -1,0 +1,42 @@
+{
+  "lsp": {
+    "deno": {
+      "settings": {
+        "deno": {
+          "enable": true,
+          "lint": true, // optional: aktifkan linting Deno
+          "unstable": false // ubah true kalau pakai unstable API
+        }
+      }
+    }
+  },
+  "languages": {
+    "TypeScript": {
+      "language_servers": [
+        "deno",
+        "!vtsls",
+        "!typescript-language-server",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "TSX": {
+      "language_servers": [
+        "deno",
+        "!vtsls",
+        "!typescript-language-server",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "JavaScript": {
+      "language_servers": [
+        "deno",
+        "!vtsls",
+        "!typescript-language-server",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    }
+  }
+}
